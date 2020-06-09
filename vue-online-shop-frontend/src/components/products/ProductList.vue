@@ -5,12 +5,7 @@
         This is ProductList
       </div>
       <template v-for="product in products">
-        <div :key="product._id" class="product">
-          <!-- 其他字段 -->
-          <p class="product.manufacturer">生产厂商：{{product.manufacturer.name}}</p>
-          <img :src="product.image" alt="" class="product__image">
-          <button @click="addToCart(product)">加入购物车</button>
-        </div>
+        <product-item :product='product' :key="product._id"></product-item>
       </template>
     </div>
   </div>
@@ -28,8 +23,12 @@
 </style>
 
 <script>
+import ProductItem from './ProductItem.vue'
 export default {
   name: "product-list",
+  components: {
+    'product-item' : ProductItem,
+  },
   created() {
     if (this.products.length === 0) {
       this.$store.dispatch("allProducts");
@@ -38,15 +37,7 @@ export default {
   //找数据源；
   computed: {
     products() {
-      return this.$store.state.products;
-    }
-  },
-  //调用添加商品的方法，方法写在store里，一个加，一个减
-  methods: {
-    addToCart(product) {
-      this.$store.commit("ADD_TO_CART", {
-        product
-      });
+      return this.$store.getters.allProducts;
     }
   }
 };

@@ -4,12 +4,7 @@
       <h1>{{msg}}</h1>
     </div>
     <template v-for="product in cart">
-      <div :key="product._id" class="product">
-        <!-- 其他字段 -->
-        <p class="product.manufacturer">生产厂商：{{product.manufacturer.name}}</p>
-        <img :src="product.image" alt="" class="product__image">
-        <button @click="removeFromCart(product._id)">从购物车中移除</button>
-      </div>
+      <product-item :product="product" :key="product._id"></product-item>
     </template>
   </div>
 </template>
@@ -26,6 +21,7 @@
 </style>
 
 <script>
+import ProductItem from '@/components/products/ProductItem.vue'
 export default {
   name: "home",
   data() {
@@ -38,12 +34,8 @@ export default {
           return this.$store.state.cart;
       }
   },
-  methods: {
-    removeFromCart(productId) {
-      this.$store.commit("REMOVE_FROM_CART", {
-        productId
-      });
-    }
+  components :{
+    'product-item' : ProductItem,
   }
 };
 </script>
