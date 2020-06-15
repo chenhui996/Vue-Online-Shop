@@ -9,9 +9,9 @@ export default {
   components: {
     "manufacturer-form": ManufacturerForm
   },
-  computed: {
-    model() {
-      return {};
+  data() {
+    return {
+      model: {}
     }
   },
   methods: {

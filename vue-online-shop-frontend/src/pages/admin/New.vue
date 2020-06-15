@@ -1,15 +1,25 @@
 <template>
-  <product-form
-    @save-product="addProduct"
-    :model="model"
-    :manufacturers="manufacturers"
-  >
-  </product-form>
+  <div>
+    <div class="title">
+      <h1>This is Admin/Edit</h1>
+    </div>
+    <product-form
+      @save-product="addProduct"
+      :model="model"
+      :manufacturers="manufacturers"
+    >
+    </product-form>
+  </div>
 </template>
 
 <script>
 import ProductForm from "@/components/products/ProductForm.vue";
 export default {
+  data() {
+    return {
+      model: { manufacturer: { name: "", _id:"" } }
+    };
+  },
   created() {
     if (this.manufacturers.length === 0) {
       this.$store.dispatch("allManufacturers");
@@ -18,9 +28,6 @@ export default {
   computed: {
     manufacturers() {
       return this.$store.getters.allManufacturers;
-    },
-    model() {
-      return {};
     }
   },
   methods: {
